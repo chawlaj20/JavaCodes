@@ -4,7 +4,7 @@ public class Android_main {
 
 	public static void main(String[] args) {
 		
-		Oneplus[] o=new Oneplus[3];
+	Oneplus[] o=new Oneplus[3];
         Realme[]  r=new Realme[2];
         Vivo[] v=new Vivo[1];
         
