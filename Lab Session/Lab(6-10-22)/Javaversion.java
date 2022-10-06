@@ -1,6 +1,6 @@
 /* Find the version of java 
- * Name:Jyoti
- * LabDate :6/10/22
+ * Name:shruti
+ * Date :6/10/22
  */
 
 
