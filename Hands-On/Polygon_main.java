@@ -16,7 +16,7 @@ public class Polygon_main {
 		
 		//create object of class
 		Rectangle r1=new Rectangle();
-		r1.getArea(l, b);  //calling  a method
+		r1.getArea(l, b);  //calling  a abstract method
 		
 
 }
