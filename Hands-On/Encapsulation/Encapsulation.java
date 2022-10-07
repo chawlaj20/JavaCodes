@@ -1,3 +1,5 @@
+//Encapsulation Program
+
 package Encapsulation;
 
  class Encapsulation {
