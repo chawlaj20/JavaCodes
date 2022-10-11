@@ -1,4 +1,4 @@
-//
+//print any multiplication table using for loop.take the input from user
 package Operators_ex;
 
 import java.util.Scanner;
