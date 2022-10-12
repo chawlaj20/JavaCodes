@@ -19,7 +19,7 @@ public class DoWhile {
 		{
 			original=num%10;   //find remainder of each num and store in original
 			reverse=reverse*10+original;   // store in reverse
-			num=num/10;                
+			num=num/10;       //divide number by 10         
 			
 		}
 	   while(num!=0);
