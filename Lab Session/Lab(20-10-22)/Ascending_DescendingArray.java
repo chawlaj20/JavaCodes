@@ -12,13 +12,13 @@ public class Ascending_DescendingArray {
 
 	public static void main(String[] args) {
 		Scanner sc=new Scanner(System.in);
-		System.out.println("Enter the number of elements in array");
+		System.out.println("Enter the number of elements in array"); // get how many elements from user
 		int a=sc.nextInt();
-		Integer array[]=new Integer[a];
+		Integer array[]=new Integer[a];//use wrapper class
 		
 		
 		System.out.println("Enter elements:");
-		
+		//use for loop
 		for(int i=0;i<a;i++)
 		{
 			array[i]=sc.nextInt();
@@ -28,7 +28,7 @@ public class Ascending_DescendingArray {
 		System.out.println("original array "+Arrays.toString(array));
 		
 		//sort the array in ascending order 
-	    Arrays.sort(array);
+	   	 Arrays.sort(array);
 		System.out.println("Array in Ascending oder:"+Arrays.toString(array));
 			
 		//sort the array in descending order
