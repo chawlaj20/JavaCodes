@@ -1,4 +1,4 @@
-//
+//write a program to print a table in for loop
 package Operators_ex;
 
 import java.util.Scanner;
