@@ -1,4 +1,5 @@
 //Write a program to iterate ArrayList.
+//Name:jyoti chawla
 
 package Collections_codes;
 
