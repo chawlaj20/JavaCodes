@@ -20,7 +20,7 @@ public class Arraylist_Replace {
 		
 		System.out.println("Arraylist are:"+names);
 		
-		//replace 2nd element shruti and set rani value
+		//replace 3rd element shruti and set rani value
 		names.set(2, "Rani");
 		System.out.println("New Array list is:"+names);
 	}
