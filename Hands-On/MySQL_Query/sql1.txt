@@ -1,0 +1,229 @@
+Enter password: ********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 15
+Server version: 8.0.31 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database jyotiDB
+    -> create database jyotiDB;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'create database jyotiDB' at line 2
+mysql> create database jyotiDB;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| jyotidb            |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> use jyotiDB
+Database changed
+mysql> create table students;
+ERROR 4028 (HY000): A table must have at least one visible column.
+mysql> create table student(id int not null auto_increment,name varchar(15) not null,age int not null,primary key(id));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> show tables
+    ->
+    -> show tables;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'show tables' at line 3
+mysql> show tables;
++-------------------+
+| Tables_in_jyotidb |
++-------------------+
+| student           |
++-------------------+
+1 row in set (0.01 sec)
+
+mysql> desc student;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int         | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(15) | NO   |     | NULL    |                |
+| age   | int         | NO   |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+3 rows in set (0.01 sec)
+
+mysql> insert into student(id,name,age)values("jyoti",20);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into student(id,name,age)values(1,"jyoti",20);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student values(2,"shruti",19);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from student;
++----+--------+-----+
+| id | name   | age |
++----+--------+-----+
+|  1 | jyoti  |  20 |
+|  2 | shruti |  19 |
++----+--------+-----+
+2 rows in set (0.00 sec)
+
+mysql> insert into student values(4,"niti",21);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from student;
++----+--------+-----+
+| id | name   | age |
++----+--------+-----+
+|  1 | jyoti  |  20 |
+|  2 | shruti |  19 |
+|  4 | niti   |  21 |
++----+--------+-----+
+3 rows in set (0.00 sec)
+
+mysql> update student set name="Rani"where id=1;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from student;
++----+--------+-----+
+| id | name   | age |
++----+--------+-----+
+|  1 | Rani   |  20 |
+|  2 | shruti |  19 |
+|  4 | niti   |  21 |
++----+--------+-----+
+3 rows in set (0.00 sec)
+
+mysql> alter table student add address varchar(30) not null;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++---------+-------------+------+-----+---------+----------------+
+| Field   | Type        | Null | Key | Default | Extra          |
++---------+-------------+------+-----+---------+----------------+
+| id      | int         | NO   | PRI | NULL    | auto_increment |
+| name    | varchar(15) | NO   |     | NULL    |                |
+| age     | int         | NO   |     | NULL    |                |
+| address | varchar(30) | NO   |     | NULL    |                |
++---------+-------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from student;
++----+--------+-----+---------+
+| id | name   | age | address |
++----+--------+-----+---------+
+|  1 | Rani   |  20 |         |
+|  2 | shruti |  19 |         |
+|  4 | niti   |  21 |         |
++----+--------+-----+---------+
+3 rows in set (0.00 sec)
+
+mysql> update student set address="thane" where id=1;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update student set address="kalyan" where id=2;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from student;
++----+--------+-----+---------+
+| id | name   | age | address |
++----+--------+-----+---------+
+|  1 | Rani   |  20 | thane   |
+|  2 | shruti |  19 | kalyan  |
+|  4 | niti   |  21 |         |
++----+--------+-----+---------+
+3 rows in set (0.00 sec)
+
+mysql> update student set address="kurla",id=3 where name=niti;
+ERROR 1054 (42S22): Unknown column 'niti' in 'where clause'
+mysql> update student set address="kurla",id=3 where id=4;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from student;
++----+--------+-----+---------+
+| id | name   | age | address |
++----+--------+-----+---------+
+|  1 | Rani   |  20 | thane   |
+|  2 | shruti |  19 | kalyan  |
+|  3 | niti   |  21 | kurla   |
++----+--------+-----+---------+
+3 rows in set (0.00 sec)
+
+mysql> alter table student modify address varchar(50) null;
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++---------+-------------+------+-----+---------+----------------+
+| Field   | Type        | Null | Key | Default | Extra          |
++---------+-------------+------+-----+---------+----------------+
+| id      | int         | NO   | PRI | NULL    | auto_increment |
+| name    | varchar(15) | NO   |     | NULL    |                |
+| age     | int         | NO   |     | NULL    |                |
+| address | varchar(50) | YES  |     | NULL    |                |
++---------+-------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> alter table student drop column address;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int         | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(15) | NO   |     | NULL    |                |
+| age   | int         | NO   |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> alter table student rename to student
+    -> ^C
+mysql> alter table student rename to student_data;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc student;
+ERROR 1146 (42S02): Table 'jyotidb.student' doesn't exist
+mysql> desc student_data;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int         | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(15) | NO   |     | NULL    |                |
+| age   | int         | NO   |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> delete from student_data where id=3;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from student_data;
++----+--------+-----+
+| id | name   | age |
++----+--------+-----+
+|  1 | Rani   |  20 |
+|  2 | shruti |  19 |
++----+--------+-----+
+2 rows in set (0.00 sec)
+
+mysql> drop table student_data;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from student_data;
+ERROR 1146 (42S02): Table 'jyotidb.student_data' doesn't exist
+mysql> select * from student_data;
+ERROR 1146 (42S02): Table 'jyotidb.student_data' doesn't exist
+mysql>
