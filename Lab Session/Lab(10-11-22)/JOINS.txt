@@ -1,0 +1,280 @@
+show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| jyotidb            |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> use jyotidb;
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_jyotidb |
++-------------------+
+| emp2              |
+| employee          |
++-------------------+
+2 rows in set (0.00 sec)
+
+mysql> drop emp2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'emp2' at line 1
+mysql> create table students(
+    -> id int not null,name varchar(20),
+    -> course_name varchar(16) not null,
+    -> primary key(id));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into students values(1,'sona','java'),(2,'jeet','mongodb'),(3,'ronny','.net');
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from students;
++----+-------+-------------+
+| id | name  | course_name |
++----+-------+-------------+
+|  1 | sona  | java        |
+|  2 | jeet  | mongodb     |
+|  3 | ronny | .net        |
++----+-------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into students values(4,'sima','java'),(5,'jerry','python'),(6,'reena','.net');
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from students;
++----+-------+-------------+
+| id | name  | course_name |
++----+-------+-------------+
+|  1 | sona  | java        |
+|  2 | jeet  | mongodb     |
+|  3 | ronny | .net        |
+|  4 | sima  | java        |
+|  5 | jerry | python      |
+|  6 | reena | .net        |
++----+-------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from employee;
++----+--------+--------+
+| id | name   | salary |
++----+--------+--------+
+|  1 | jyoti  |  12000 |
+|  2 | shruti |  13000 |
+|  3 | joy    |  15000 |
+|  4 | shree  |  18000 |
+|  5 | john   |  16000 |
+|  6 | bhakti |  12000 |
++----+--------+--------+
+6 rows in set (0.00 sec)
+
+mysql> insert into students values(7,'sima','java');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from students;
++----+-------+-------------+
+| id | name  | course_name |
++----+-------+-------------+
+|  1 | sona  | java        |
+|  2 | jeet  | mongodb     |
+|  3 | ronny | .net        |
+|  4 | sima  | java        |
+|  5 | jerry | python      |
+|  6 | reena | .net        |
+|  7 | sima  | java        |
++----+-------+-------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from employee;
++----+--------+--------+
+| id | name   | salary |
++----+--------+--------+
+|  1 | jyoti  |  12000 |
+|  2 | shruti |  13000 |
+|  3 | joy    |  15000 |
+|  4 | shree  |  18000 |
+|  5 | john   |  16000 |
+|  6 | bhakti |  12000 |
++----+--------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select students.name,students.id,students.course_name,employee.name from students
+    -> inner join employee
+    -> on students.id=employee.id;
++-------+----+-------------+--------+
+| name  | id | course_name | name   |
++-------+----+-------------+--------+
+| sona  |  1 | java        | jyoti  |
+| jeet  |  2 | mongodb     | shruti |
+| ronny |  3 | .net        | joy    |
+| sima  |  4 | java        | shree  |
+| jerry |  5 | python      | john   |
+| reena |  6 | .net        | bhakti |
++-------+----+-------------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select students.name,students.id,students.course_name,employee.name from students
+    -> left join employee
+    -> on students.course_name=employee.id;
++-------+----+-------------+------+
+| name  | id | course_name | name |
++-------+----+-------------+------+
+| sona  |  1 | java        | NULL |
+| jeet  |  2 | mongodb     | NULL |
+| ronny |  3 | .net        | NULL |
+| sima  |  4 | java        | NULL |
+| jerry |  5 | python      | NULL |
+| reena |  6 | .net        | NULL |
+| sima  |  7 | java        | NULL |
++-------+----+-------------+------+
+7 rows in set, 7 warnings (0.00 sec)
+
+mysql> select students.name,students.id,students.course_name,employee.name from students
+    -> left join employee
+    -> on students.id=employee.id;
++-------+----+-------------+--------+
+| name  | id | course_name | name   |
++-------+----+-------------+--------+
+| sona  |  1 | java        | jyoti  |
+| jeet  |  2 | mongodb     | shruti |
+| ronny |  3 | .net        | joy    |
+| sima  |  4 | java        | shree  |
+| jerry |  5 | python      | john   |
+| reena |  6 | .net        | bhakti |
+| sima  |  7 | java        | NULL   |
++-------+----+-------------+--------+
+7 rows in set (0.00 sec)
+
+mysql> select students.name,students.id,students.course_name,employee.name from students
+    -> right join employee
+    -> on students.id=employee.id;
++-------+------+-------------+--------+
+| name  | id   | course_name | name   |
++-------+------+-------------+--------+
+| sona  |    1 | java        | jyoti  |
+| jeet  |    2 | mongodb     | shruti |
+| ronny |    3 | .net        | joy    |
+| sima  |    4 | java        | shree  |
+| jerry |    5 | python      | john   |
+| reena |    6 | .net        | bhakti |
++-------+------+-------------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select students.name,students.id,students.course_name,employee.name,employee.salary from students
+    -> ^C
+mysql> select students.name,students.id,students.course_name,employee.name,employee.salary from students
+    -> cross join employee;
++-------+----+-------------+--------+--------+
+| name  | id | course_name | name   | salary |
++-------+----+-------------+--------+--------+
+| sona  |  1 | java        | bhakti |  12000 |
+| sona  |  1 | java        | john   |  16000 |
+| sona  |  1 | java        | shree  |  18000 |
+| sona  |  1 | java        | joy    |  15000 |
+| sona  |  1 | java        | shruti |  13000 |
+| sona  |  1 | java        | jyoti  |  12000 |
+| jeet  |  2 | mongodb     | bhakti |  12000 |
+| jeet  |  2 | mongodb     | john   |  16000 |
+| jeet  |  2 | mongodb     | shree  |  18000 |
+| jeet  |  2 | mongodb     | joy    |  15000 |
+| jeet  |  2 | mongodb     | shruti |  13000 |
+| jeet  |  2 | mongodb     | jyoti  |  12000 |
+| ronny |  3 | .net        | bhakti |  12000 |
+| ronny |  3 | .net        | john   |  16000 |
+| ronny |  3 | .net        | shree  |  18000 |
+| ronny |  3 | .net        | joy    |  15000 |
+| ronny |  3 | .net        | shruti |  13000 |
+| ronny |  3 | .net        | jyoti  |  12000 |
+| sima  |  4 | java        | bhakti |  12000 |
+| sima  |  4 | java        | john   |  16000 |
+| sima  |  4 | java        | shree  |  18000 |
+| sima  |  4 | java        | joy    |  15000 |
+| sima  |  4 | java        | shruti |  13000 |
+| sima  |  4 | java        | jyoti  |  12000 |
+| jerry |  5 | python      | bhakti |  12000 |
+| jerry |  5 | python      | john   |  16000 |
+| jerry |  5 | python      | shree  |  18000 |
+| jerry |  5 | python      | joy    |  15000 |
+| jerry |  5 | python      | shruti |  13000 |
+| jerry |  5 | python      | jyoti  |  12000 |
+| reena |  6 | .net        | bhakti |  12000 |
+| reena |  6 | .net        | john   |  16000 |
+| reena |  6 | .net        | shree  |  18000 |
+| reena |  6 | .net        | joy    |  15000 |
+| reena |  6 | .net        | shruti |  13000 |
+| reena |  6 | .net        | jyoti  |  12000 |
+| sima  |  7 | java        | bhakti |  12000 |
+| sima  |  7 | java        | john   |  16000 |
+| sima  |  7 | java        | shree  |  18000 |
+| sima  |  7 | java        | joy    |  15000 |
+| sima  |  7 | java        | shruti |  13000 |
+| sima  |  7 | java        | jyoti  |  12000 |
++-------+----+-------------+--------+--------+
+42 rows in set (0.00 sec)
+mysql> select * from students full join employee;
++----+-------+-------------+----+--------+--------+
+| id | name  | course_name | id | name   | salary |
++----+-------+-------------+----+--------+--------+
+|  1 | sona  | java        |  6 | bhakti |  12000 |
+|  1 | sona  | java        |  5 | john   |  16000 |
+|  1 | sona  | java        |  4 | shree  |  18000 |
+|  1 | sona  | java        |  3 | joy    |  15000 |
+|  1 | sona  | java        |  2 | shruti |  13000 |
+|  1 | sona  | java        |  1 | jyoti  |  12000 |
+|  2 | jeet  | mongodb     |  6 | bhakti |  12000 |
+|  2 | jeet  | mongodb     |  5 | john   |  16000 |
+|  2 | jeet  | mongodb     |  4 | shree  |  18000 |
+|  2 | jeet  | mongodb     |  3 | joy    |  15000 |
+|  2 | jeet  | mongodb     |  2 | shruti |  13000 |
+|  2 | jeet  | mongodb     |  1 | jyoti  |  12000 |
+|  3 | ronny | .net        |  6 | bhakti |  12000 |
+|  3 | ronny | .net        |  5 | john   |  16000 |
+|  3 | ronny | .net        |  4 | shree  |  18000 |
+|  3 | ronny | .net        |  3 | joy    |  15000 |
+|  3 | ronny | .net        |  2 | shruti |  13000 |
+|  3 | ronny | .net        |  1 | jyoti  |  12000 |
+|  4 | sima  | java        |  6 | bhakti |  12000 |
+|  4 | sima  | java        |  5 | john   |  16000 |
+|  4 | sima  | java        |  4 | shree  |  18000 |
+|  4 | sima  | java        |  3 | joy    |  15000 |
+|  4 | sima  | java        |  2 | shruti |  13000 |
+|  4 | sima  | java        |  1 | jyoti  |  12000 |
+|  5 | jerry | python      |  6 | bhakti |  12000 |
+|  5 | jerry | python      |  5 | john   |  16000 |
+|  5 | jerry | python      |  4 | shree  |  18000 |
+|  5 | jerry | python      |  3 | joy    |  15000 |
+|  5 | jerry | python      |  2 | shruti |  13000 |
+|  5 | jerry | python      |  1 | jyoti  |  12000 |
+|  6 | reena | .net        |  6 | bhakti |  12000 |
+|  6 | reena | .net        |  5 | john   |  16000 |
+|  6 | reena | .net        |  4 | shree  |  18000 |
+|  6 | reena | .net        |  3 | joy    |  15000 |
+|  6 | reena | .net        |  2 | shruti |  13000 |
+|  6 | reena | .net        |  1 | jyoti  |  12000 |
+|  7 | sima  | java        |  6 | bhakti |  12000 |
+|  7 | sima  | java        |  5 | john   |  16000 |
+|  7 | sima  | java        |  4 | shree  |  18000 |
+|  7 | sima  | java        |  3 | joy    |  15000 |
+|  7 | sima  | java        |  2 | shruti |  13000 |
+|  7 | sima  | java        |  1 | jyoti  |  12000 |
++----+-------+-------------+----+--------+--------+
+42 rows in set (0.00 sec)
+
+mysql>
+
+
+
+
+
+
+
+
+
+
+
+
