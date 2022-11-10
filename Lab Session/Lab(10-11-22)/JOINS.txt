@@ -1,3 +1,7 @@
+performinj joins operation in mysql
+name:jyoti chawla
+date:10/11/22
+
 show databases;
 +--------------------+
 | Database           |
@@ -266,15 +270,4 @@ mysql> select * from students full join employee;
 42 rows in set (0.00 sec)
 
 mysql>
-
-
-
-
-
-
-
-
-
-
-
 
